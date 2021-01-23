@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <style media="screen">
+
+  .panel-title {display: inline;font-weight: bold;}
+  .checkbox.pull-right { margin: 0; }
+  .pl-ziro { padding-left: 0px; }
+
+    </style>
+</head>
+<body>
+
+
+<br><br>
+<h3 style="text-align:center;color:#a5b5ae;">One Ticket Cost : 100</h3><br>
+<marquee scrolldelay="50">ITS FAKE PAYMENT PAGE. WE DONOT STORE YOUR DATA</marquee>
+<marquee scrolldelay="50">ITS JUST FOR DEMO</marquee>
+<br><br>
+<div class="container" style="text-align:center; padding-left:300px;">
+    <div class="row">
+        <div class="col-xs-12 col-md-4" style="height:500px; width:600px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Payment Details
+                    </h3>
+                    <div class="checkbox pull-right">
+                        <label>
+                            <input type="checkbox"/>
+                            Remember
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form method="post" role="form">
+                        <div class="form-group">
+                            <label for="cardNumber">
+                                CARD NUMBER</label>
+                            <div class="input-group">
+                                <input autofocus class="form-control" id="cardNumber" placeholder="Valid Card Number"
+                                       required type="text"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label for="expityMonth">
+                                        EXPIRY DATE</label>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                        <input class="form-control" id="expityMonth" placeholder="MM" required
+                                               type="text"/>
+                                    </div>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                        <input class="form-control" id="expityYear" placeholder="YY" required
+                                               type="text"/></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label for="cvCode">
+                                        CV CODE</label>
+                                    <input class="form-control" id="cvCode" placeholder="CV" required type="password"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#"><span class="badge pull-right">{{totalSeat}}</span> Total Seat</a>
+                </li>
+            </ul>
+            <br>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#"><span class="badge pull-right">{{total}}</span> Final Payment</a>
+                </li>
+            </ul>
+            <br/>
+            <html lang="en">
+            <br/>
+            <head>
+                <!-- Add meta tags for mobile and IE -->
+                <meta content="width=device-width, initial-scale=1" name="viewport">
+                <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+                <title> PayPal Smart Payment Buttons Integration | Client Demo </title>
+            </head>
+
+            <body>
+            <!-- Set up a container element for the button -->
+            <div id="paypal-button-container"></div>
+
+            <!-- Include the PayPal JavaScript SDK -->
+            <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+
+            <script>
+                        // Render the PayPal button into #paypal-button-container
+                        paypal.Buttons({
+
+                            // Set up the transaction
+                            createOrder: function(data, actions) {
+                                return actions.order.create({
+                                    purchase_units: [{
+                                        amount: {
+                                            value: '88.44'
+                                        }
+                                    }]
+                                });
+                            },
+
+                            // Finalize the transaction
+                            onApprove: function(data, actions) {
+                                return actions.order.capture().then(function(details) {
+                                    // Show a success message to the buyer
+                                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                                });
+                            }
+
+
+                        }).render('#paypal-button-container');
+
+            </script>
+            </body>
+            <a class="btn btn-success btn-lg btn-block" href="/payment-success" role="button">Pay</a>
+            <!DOCTYPE html>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

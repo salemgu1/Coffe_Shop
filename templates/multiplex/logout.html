@@ -1,0 +1,41 @@
+{%load static%}
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>logged out</title>
+
+</head>
+<body>
+
+{% include "multiplex/navbar.html" %}
+<br><br><br><br><br>
+
+</head>
+<body class="">
+<div class="page">
+    <div class="page-single">
+        <div class="container">
+            <div class="row">
+                <div class="col col-login mx-auto">
+                    <div class="text-center mb-6">
+                        <img alt="" class="h-6" src="./assets/brand/tabler.svg">
+                    </div>
+                    <div class="card-body p-6">
+                        <div class="card-title text-center">Log out successfully, we'll be happy to see you again!</div>
+                        <br><br><br>
+                        <div class="text-center text-muted">
+                            <a href="{%url 'customerlogin'%}">Want to reconnect? Click</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

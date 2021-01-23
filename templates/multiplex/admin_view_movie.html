@@ -1,0 +1,60 @@
+{% extends 'multiplex/adminbase.html' %}
+{% block content %}
+{% load static %}
+
+<!-- main content -->
+<div class="wrapper">
+
+    <!-- ****** table  start ********** -->
+    <div class="row">
+        <div class="col-12 col-m-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color:red; text-align:center">
+                        Movie List
+                    </h3>
+
+                </div>
+                <div class="card-content">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Movie Name</th>
+                            <th>Poster</th>
+                            <th>Description</th>
+                            <th>Actor</th>
+                            <th>Release Date</th>
+                            <th>Out Date</th>
+                            <th>age limitation</th>
+                            <th>Hall</th>
+                            <th>Delete Movie</th>
+                        </tr>
+                        out_date
+                        </thead>
+                        <tbody>
+                        {% for movie in movies %}
+                        <tr>
+                            <td> {{movie}}</td>
+                            <td><img alt="poster Pic" height="40px" src="{% static movie.poster.url %}" width="40px"/>
+                            </td>
+                            <td> {{movie.description}}</td>
+                            <td> {{movie.actor}}</td>
+                            <td>{{movie.release_date}}</td>
+                            <td>{{movie.out_date}}</td>
+                            <td>{{movie.limitation}}</td>
+                            <td><a href="{% url 'delete-movie' movie.id  %}"
+                                   style="color:blue; text-decoration:none;font-size:25px;">&#10008;</a></td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ****** table start ********** -->
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+<!-- end main content -->
+{% endblock content %}

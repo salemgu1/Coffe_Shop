@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+  .mySlides {display:none;}
+    </style>
+</head>
+<body>
+{% include "multiplex/navbar.html" %}
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+
+            {% for movie in movies %}
+            <td>
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static movie.poster.url %}" class="card-img-top" style="width:269px;height:200px;"
+                         alt="movie poster">
+                    <div class="card-body">
+                        <h5 class="card-title">{{movie.name}}</h5>
+                        <p class="card-text">{{movie.description}}</p>
+                        <p class="card-text">{{movie.limitation}}</p>
+                        <p class="card-text">{{movie.hall}}</p>
+                        <div style="display: flex;justify-content: space-between;">
+                            <a href="{% url 'view-movie-details' movie.id  %}" class="btn btn-primary">View Details</a>
+                            <a href="{% url 'book-now' movie.id  %}" style="background-color:red;"
+                               class="btn btn-primary">Book Now</a>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+            {% if forloop.counter|divisibleby:"4" %}
+        </tr>
+        <tr>
+            <br><br>
+            {% endif %}
+            {% endfor %}
+        </tr>
+    </table>
+</div>
+
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+</body>
+
+</html>
