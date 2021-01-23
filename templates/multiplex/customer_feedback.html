@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% block content %}
 <head>
-    <style media="screen">
+  <style media="screen">
     input[type=text], select,input[type=number] , textarea{
     width: 100%;
     padding: 12px 20px;
@@ -29,8 +29,7 @@
   }
 
 
-
-    </style>
+  </style>
 
 
 </head>
@@ -38,18 +37,19 @@
 <br><br><br><br><br>
 <h3 style="text-align:center;">Send Feedback To Admin</h3>
 <div>
-    <form method="post" style="margin-left:200px;margin-right:200px;">
-        {% csrf_token %}
+  <form method="post" style="margin-left:200px;margin-right:200px;">
+      {% csrf_token %}
 
-        <label for="by">Your Name</label>
-        {% render_field feedback.by class="form-control" %}
+    <label for="by">Your Name</label>
+    {% render_field feedback.by class="form-control"  %}
 
-        <label for="message">Message</label>
-        {% render_field feedback.message class="form-control" %}
+    <label for="message">Message</label>
+    {% render_field feedback.message class="form-control"  %}
 
-        <input type="submit" value="Send">
-    </form>
+    <input type="submit" value="Send">
+  </form>
 </div>
+
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

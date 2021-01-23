@@ -4,7 +4,7 @@
 
 
 <head>
-    <style media="screen">
+  <style media="screen">
     .alert {
       margin-left: 25%;
       margin-right: 25%;
@@ -26,19 +26,18 @@
     .closebtn:hover {
       color: black;
     }
-
-    </style>
-    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+  </style>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
 <br><br><br><br><br>
 <div style="text-align:center;color:blue;">
-    <h2>Feedback Received</h2>
+  <h2>Feedback Received</h2>
 </div><br>
 {%for f in feedback%}
 <div class="alert">
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-    <strong>{{f.date}} ||By :{{f.by}} </strong><br> {{f.message}}
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>{{f.date}} ||By :{{f.by}} </strong><br> {{f.message}}
 </div>
 <br>
 {%endfor%}
