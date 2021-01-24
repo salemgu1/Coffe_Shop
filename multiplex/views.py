@@ -89,8 +89,8 @@ def admin_add_movie_view(request):
         movie.video = request.POST['video']
         movie.limitation = request.POST['limitation']
         movie.hall = request.POST['hall']
-        movie.hall = request.POST['org_price']
-        movie.hall = request.POST['price']
+        movie.org_price = request.POST['org_price']
+        movie.price = request.POST['price']
         movie.save()
         start_date = request.POST['release_date']
         start_date = date(int(start_date[0:4]), int(start_date[5:7]), int(start_date[8:10]))
