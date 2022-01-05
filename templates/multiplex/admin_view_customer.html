@@ -28,8 +28,8 @@
 							<tbody>
                 {% for c in customers %}
                 <tr>
-                  <td> {{c.get_name}}</td>
-                  <td> <img src="{% static c.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+                  <td> {{c.user.username}}</td>
+<!--                  <td> <img src="{% static c.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>-->
                   <td>{{c.mobile}}</td>
 
                   <td><a style="color:blue; text-decoration:none;font-size:25px;"href="{% url 'delete-customer' c.id  %}">&#10008;</a></td>

@@ -14,17 +14,15 @@
 <!-- main content -->
 <div class="wrapper">
 
-    <h1 style="text-align:center;color:blue;">Movie Details</h1><br>
+    <h1 style="text-align:center;color:blue;">Product Details</h1><br>
     <div class="center">
-        <iframe width="853" height="480" src="{{movie.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <h2 style="text-align:center;color:blue;">Name : {{movie}}</h2>
-        <img src="{% static movie.poster.url %}" alt="John" style="width:500px;height:500px;">
-        <h3 style="text-align:center;color:Brown;">Description : {{movie.description}}</h3>
-        <h3 style="text-align:center;color:red;">Actor Name : {{movie.actor}}</h3>
-        <h3 style="text-align:center;color:Green;">Director Name : {{movie.director}}</h3>
-        <h3 style="text-align:center;color:Brown;">Release Date : {{movie.release_date}}</h3>
-        <h3 style="text-align:center;color:Black;">Out Date : {{movie.out_date}}</h3>
-    </div>
+<!--        <iframe width="853" height="480" src="{{product.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+        <h2 style="text-align:center;color:blue;">Name : {{product.name}}</h2>
+        <img src="{% static product.poster.url %}" alt="John" style="width:500px;height:500px;">
+        <h3 style="text-align:center;color:Brown;">Description : {{product.description}}</h3>
+        <h3 style="text-align:center;color:Brown;">Release Date : {{product.release_date}}</h3>
+        <h3 style="text-align:center;color:Black;">Out Date : {{product.out_date}}</h3>
+    </div>`
 
 
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

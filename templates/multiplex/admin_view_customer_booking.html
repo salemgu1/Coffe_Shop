@@ -20,11 +20,10 @@
 							<thead>
                 <tr>
                   <th>Customer Name</th>
-                  <th>Movie Name</th>
-                  <th>Movie Date</th>
+                  <th>product Name</th>
+                  <th>product Date</th>
                   <th>Total Seat</th>
-                  <th>Seat Number</th>
-                  <th>Watchers</th>
+                  <th>Table Number</th>
                   <th>Booking Cost</th>
                   <th>Delete Booking</th>
                 </tr>
@@ -33,7 +32,7 @@
               {% for b in bookings %}
                 <tr>
                   <td> {{b.customer}}</td>
-                  <td> {{b.movie}}</td>
+                  <td> {{b.product}}</td>
                   <td> {{b.date}}</td>
                   <td> {{b.totalSeat}}</td>
                   <td> {{b.seatNumber}}</td>

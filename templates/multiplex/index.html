@@ -14,19 +14,19 @@
     <table class="table">
         <tr>
 
-            {% for movie in movies %}
+            {% for product in products %}
             <td>
                 <div class="card" style="width: 18rem;">
-                    <img src="{% static movie.poster.url %}" class="card-img-top" style="width:269px;height:200px;"
-                         alt="movie poster">
+                    <img src="{% static product.poster.url %}" class="card-img-top" style="width:269px;height:200px;"
+                         alt="product poster">
                     <div class="card-body">
-                        <h5 class="card-title">{{movie.name}}</h5>
-                        <p class="card-text">{{movie.description}}</p>
-                        <p class="card-text">{{movie.limitation}}</p>
-                        <p class="card-text">{{movie.hall}}</p>
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">{{product.description}}</p>
+                        <p class="card-text">{{product.limitation}}</p>
+                        <p class="card-text">{{product.hall}}</p>
                         <div style="display: flex;justify-content: space-between;">
-                            <a href="{% url 'view-movie-details' movie.id  %}" class="btn btn-primary">View Details</a>
-                            <a href="{% url 'book-now' movie.id  %}" style="background-color:red;"
+                            <a href="{% url 'view-product-details' product.id  %}" class="btn btn-primary">View Details</a>
+                            <a href="{% url 'buy-now' product.id  %}" style="background-color:red;"
                                class="btn btn-primary">Book Now</a>
                         </div>
 

@@ -4,7 +4,7 @@ from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from . import forms, models
 
@@ -12,8 +12,8 @@ from . import forms, models
 def home_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    movies = models.Movie.objects.all()
-    return render(request, 'multiplex/index.html', {'movies': movies})
+    products = models.Coffee.objects.all()
+    return render(request, 'multiplex/index.html', {'products': products})
 
 
 # for showing signup/login button for ADMIN(by sumit)
@@ -61,49 +61,45 @@ def afterlogin_view(request):
 @login_required(login_url='adminlogin')
 def admin_dashboard_view(request):
     dict = {
-        'total_customer': models.Customer.objects.all().count(),
-        'total_movie': models.Movie.objects.all().count(),
-        'total_booking': models.Booking.objects.all().count(),
-
+        "total_customer": models.Customer.objects.all().count(),
+        "total_product": models.Coffee.objects.all().count(),
+        "total_booking": models.Booking.objects.all().count(),
     }
     return render(request, 'multiplex/admin_dashboard.html', context=dict)
 
 
 @login_required(login_url='adminlogin')
-def admin_movie_view(request):
-    return render(request, 'multiplex/admin_movie.html')
+def admin_product_view(request):
+    return render(request, 'multiplex/admin_product.html')
 
 
 @login_required(login_url='adminlogin')
-def admin_add_movie_view(request):
+def admin_add_product_view(request):
     if request.method == 'POST':
 
-        movie = models.Movie()
-        movie.name = request.POST['name']
-        movie.actor = request.POST['actorname']
-        movie.director = request.POST['directorname']
-        movie.description = request.POST['description']
-        movie.release_date = request.POST['release_date']
-        movie.out_date = request.POST['out_date']
-        movie.poster = request.FILES['poster']
-        movie.video = request.POST['video']
-        movie.limitation = request.POST['limitation']
-        movie.hall = request.POST['hall']
-        movie.org_price = request.POST['org_price']
-        movie.price = request.POST['price']
-        movie.save()
+        product = models.Coffee()
+        product.name = request.POST['name']
+        product.description = request.POST['description']
+        product.release_date = request.POST['release_date']
+        product.out_date = request.POST['out_date']
+        product.poster = request.FILES['poster']
+        product.limitation = request.POST['limitation']
+        product.hall = request.POST['hall']
+        product.org_price = request.POST['org_price']
+        product.price = request.POST['price']
+        product.save()
         start_date = request.POST['release_date']
         start_date = date(int(start_date[0:4]), int(start_date[5:7]), int(start_date[8:10]))
         end_date = request.POST['out_date']
         end_date = date(int(end_date[0:4]), int(end_date[5:7]), int(end_date[8:10]))
         delta = timedelta(days=1)
-        moviex = models.Movie.objects.get(id=movie.id)
+        productx = models.Coffee.objects.get(id=product.id)
         while start_date <= end_date:
-            seat = models.Seat(movie=moviex, date=start_date)
+            seat = models.Seat(product=productx, date=start_date)
             seat.save()
             start_date += delta
-        return HttpResponseRedirect('admin-movie')
-    return render(request, 'multiplex/admin_add_movie.html')
+        return HttpResponseRedirect('admin-product')
+    return render(request, 'multiplex/admin_add_product.html')
 
 
 @login_required(login_url='adminlogin')
@@ -123,7 +119,7 @@ def delete_customer_view(request, pk):
     user = models.User.objects.get(id=customer.user_id)
     user.delete()
     customer.delete()
-    return HttpResponseRedirect('/admin-view-customer')
+    return HttpResponseRedirect('multiplex/admin-view-customer')
 
 
 @login_required(login_url='adminlogin')
@@ -167,16 +163,16 @@ def cancel_ticket_view(request, pk):
 
 
 @login_required(login_url='adminlogin')
-def admin_view_movie_view(request):
-    movies = models.Movie.objects.all()
-    return render(request, 'multiplex/admin_view_movie.html', {'movies': movies})
+def admin_view_product_view(request):
+    products = models.Coffee.objects.all()
+    return render(request, 'multiplex/admin_view_product.html', {'products': products})
 
 
 @login_required(login_url='adminlogin')
-def delete_movie_view(request, pk):
-    movie = models.Movie.objects.get(id=pk)
-    movie.delete()
-    return HttpResponseRedirect('/admin-view-movie')
+def delete_product_view(request, pk):
+    product = models.Coffee.objects.get(id=pk)
+    product.delete()
+    return HttpResponseRedirect('/admin-view-product')
 
 
 @login_required(login_url='adminlogin')
@@ -202,10 +198,10 @@ def customer_dashboard_view(request):
     for booking in bookings:
         dict = {
             'customer': customer,
-            'movieName': booking.movie,
+            'productName': booking.coffee,
             'seatNumber': booking.seatNumber,
             'cost': booking.cost,
-            'movieDate': booking.date,
+            'productDate': booking.date,
         }
         break
     return render(request, 'multiplex/customer_dashboard.html', context=dict)
@@ -215,25 +211,26 @@ def customer_dashboard_view(request):
 @user_passes_test(is_customer)
 def customer_home_view(request, order_by=None):
     customer = models.Customer.objects.get(user_id=request.user.id)
-    movies = models.Movie.objects.all()
+    # customer = get_object_or_404(models.Customer, pk=request.user.id)
+    products = models.Coffee.objects.all()
     if order_by:
-        movies = sorted(movies, key=operator.attrgetter(order_by))
+        products = sorted(products, key=operator.attrgetter(order_by))
     dict = {
         'customer': customer,
-        'movies': movies,
+        'products': products,
     }
     return render(request, 'multiplex/customer_home.html', context=dict)
 
 
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
-def view_movie_details_view(request, pk):
-    movie = models.Movie.objects.get(id=pk)
+def view_product_details_view(request, pk):
+    product = models.Coffee.objects.get(id=pk)
     dict = {
-        'movie': movie,
+        'product': product,
         'customer': models.Customer.objects.get(user_id=request.user.id)
     }
-    return render(request, 'multiplex/view_movie_details.html', context=dict)
+    return render(request, 'multiplex/view_product_details.html', context=dict)
 
 
 @login_required(login_url='customerlogin')
@@ -265,23 +262,25 @@ def edit_customer_profile_view(request):
 
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
-def book_now_view(request, pk):
-    movie = models.Movie.objects.get(id=pk)
-    release_date = movie.release_date
-    out_date = movie.out_date
+def buy_now_view(request, pk):
+    product = models.Coffee.objects.get(id=pk)
+    release_date = product.release_date
+    out_date = product.out_date
     customer = models.Customer.objects.get(user_id=request.user.id)
     dict = {
         'release_date': str(release_date),
         'out_date': str(out_date),
-        'movie': movie,
+        'product': product,
         'customer': customer,
+        'price':product.price,
     }
     if request.method == 'POST':
         booking_date = request.POST['booking_date']
-        seats = models.Seat.objects.get(movie=movie, date=booking_date)
-        setattr(movie, "popularity", getattr(movie, "popularity") + 1)
-        movie.save()
-        request.session['movie_id'] = movie.id
+
+        seats = models.Seat.objects.get(coffee=product, date=booking_date)
+        # setattr(product, "popularity", getattr(product, "popularity") + 1)
+        product.save()
+        request.session['product_id'] = product.id
         request.session['seat_id'] = seats.id
         return HttpResponseRedirect('/choose-seat')
 
@@ -291,14 +290,14 @@ def book_now_view(request, pk):
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
 def choose_seat_view(request):
-    movie = models.Movie.objects.get(id=request.session['movie_id'])
+    product = models.Coffee.objects.get(id=request.session['product_id'])
     seats = models.Seat.objects.get(id=request.session['seat_id'])
     dict = {
-        'movie': movie,
+        'product': product,
         'seats': seats,
     }
     response = render(request, 'multiplex/choose_seat.html', context=dict)
-    response.set_cookie('movie_id', request.session['movie_id'])
+    response.set_cookie('product_id', request.session['product_id'])
     response.set_cookie('seat_id', request.session['seat_id'])
     return response
 
@@ -308,18 +307,19 @@ def choose_seat_view(request):
 def proceed_to_pay_view(request):
     total = int(request.COOKIES['allNumberVals']) * 100
     totalSeat = int(request.COOKIES['allNumberVals'])
+    # price = request.
     return render(request, 'multiplex/payment.html', {'total': total, 'totalSeat': totalSeat})
 
 
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
 def payment_success_view(request):
-    movie = models.Movie.objects.get(id=request.COOKIES['movie_id'])
+    product = models.Coffee.objects.get(id=request.COOKIES['product_id'])
     seats = models.Seat.objects.get(id=request.COOKIES['seat_id'])
     allNameVals = request.COOKIES['allNameVals']
     allNumberVals = request.COOKIES['allNumberVals']
     allSeatsVals = request.COOKIES['allSeatsVals']
-    total = int(request.COOKIES['allNumberVals']) * getattr(movie, 'price')
+    total = int(request.COOKIES['allNumberVals']) * getattr(product, 'price')
 
     # make seat unavailable for other
     seat = allSeatsVals.split(',')
@@ -564,15 +564,15 @@ def payment_success_view(request):
     customer = models.Customer.objects.get(user_id=request.user.id)
     booking = models.Booking()
     booking.customer = customer
-    booking.movie = movie
+    booking.coffee = product
     booking.cost = total
-    booking.totalSeat = int(request.COOKIES['allNumberVals'])
+    # booking.totalSeat = int(request.COOKIES['allNumberVals'])
     booking.seatNumber = allSeatsVals
     booking.date = seats.date
     booking.watchers = allNameVals
     booking.save()
 
-    return render(request, 'multiplex/movie_booked.html', {'customer': customer})
+    return render(request, 'multiplex/product_booked.html', {'customer': customer})
 
 
 @login_required(login_url='customerlogin')

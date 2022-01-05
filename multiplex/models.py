@@ -1,13 +1,15 @@
-import datetime
+from datetime import datetime, timedelta, timezone, tzinfo
 
 from django.contrib.auth.models import User
 from django.db import models
+
 
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile_pic/CustomerProfilePic/', null=True, blank=True)
     mobile = models.CharField(max_length=20, null=False)
+    # vip = models.BooleanField(default=False)
 
     @property
     def get_name(self):
@@ -27,15 +29,6 @@ CHOICES = (
     ('Young_Adults', 'Young Adults (16+)'),
     ('Adults', 'Adults (18+)'),
 )
-Category_CHOICES = (
-    ('Action', 'action'),
-    ('Comedy', 'comedy'),
-    ('Drama', 'drama'),
-    ('Fantasy', 'fantasy'),
-    ('Horror', 'horror'),
-    ('Mystery', 'mystery'),
-    ('Romance', 'romance'),
-)
 Hall_CHOICES = (
     ('A', 'a'),
     ('B', 'b'),
@@ -44,19 +37,14 @@ Hall_CHOICES = (
 )
 
 
-class Movie(models.Model):
+class Coffee(models.Model):
     name = models.CharField(max_length=50, null=True)
-    actor = models.CharField(max_length=50, null=True)
-    director = models.CharField(max_length=50, null=True)
     description = models.CharField(max_length=500, null=True)
-    poster = models.ImageField(upload_to='movie_pic/movie_poster/', null=True, blank=True)
-    video = models.CharField(max_length=200, null=True)
-    category = models.CharField(max_length=200, choices=Category_CHOICES, default="General")
-    release_date = models.DateField(default=datetime.date.today)
+    poster = models.ImageField(upload_to='coffee_pic/coffee_poster/', null=True, blank=True)
+    release_date = models.DateField()
     price = models.IntegerField(default=100)
     org_price = models.IntegerField(default=price)
-    popularity = models.IntegerField(default=0)
-    out_date = models.DateField(default=datetime.date.today)
+    out_date = models.DateField()
     limitation = models.CharField(max_length=30, choices=CHOICES, default='Older Kids (7+)')
     hall = models.CharField(max_length=10, choices=Hall_CHOICES, default='A')
     def __str__(self):
@@ -71,7 +59,7 @@ class Feedback(models.Model):
 
 class Booking(models.Model):
     customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
-    movie = models.ForeignKey('Movie', on_delete=models.CASCADE)
+    coffee = models.ForeignKey('Coffee', on_delete=models.CASCADE)
     date = models.DateField()
     seatNumber = models.CharField(max_length=500)
     totalSeat = models.PositiveIntegerField()
@@ -84,7 +72,7 @@ class Booking(models.Model):
 
 
 class Seat(models.Model):
-    movie = models.ForeignKey('Movie', on_delete=models.CASCADE, null=True)
+    coffee = models.ForeignKey('Coffee', on_delete=models.CASCADE, null=True)
     date = models.DateField()
     A1 = models.BooleanField(default=True)
     A2 = models.BooleanField(default=True)

@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('actor', models.CharField(max_length=50, null=True)),
                 ('director', models.CharField(max_length=50, null=True)),
                 ('description', models.CharField(max_length=100, null=True)),
-                ('poster', models.ImageField(blank=True, null=True, upload_to='movie_pic/movie_poster/')),
+                ('poster', models.ImageField(blank=True, null=True, upload_to='coffee_pic/coffee_poster/')),
                 ('video', models.CharField(max_length=200, null=True)),
                 ('release_date', models.DateField()),
                 ('out_date', models.DateField()),

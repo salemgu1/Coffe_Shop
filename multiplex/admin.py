@@ -1,13 +1,13 @@
 from django.contrib import admin
 
-from .models import Movie, Customer
+from .models import Coffee, Customer
 
 
 class MovieAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(Movie, MovieAdmin)
+admin.site.register(Coffee, MovieAdmin)
 
 
 class CustomerAdmin(admin.ModelAdmin):

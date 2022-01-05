@@ -11,7 +11,7 @@
 				<div class="card">
 					<div class="card-header">
 						<h3 style="color:red; text-align:center" >
-							Movie List
+							Product List
 						</h3>
 
 					</div>
@@ -19,7 +19,7 @@
 						<table>
 							<thead>
                 <tr>
-                  <th>Movie Name</th>
+                  <th>product Name</th>
                   <th>Poster</th>
                   <th>Description</th>
                   <th>Actor</th>
@@ -27,20 +27,21 @@
                   <th>Out Date</th>
                   <th>age limitation</th>
                   <th>Hall</th>
-                  <th>Delete Movie</th>
+                  <th>Delete product</th>
                 </tr>out_date
 							</thead>
 							<tbody>
-              {% for movie in movies %}
+              {% for product in products %}
                 <tr>
-                  <td> {{movie}}</td>
-                  <td> <img src="{% static movie.poster.url %}" alt="poster Pic" height="40px" width="40px" /></td>
-                  <td> {{movie.description}}</td>
-                  <td> {{movie.actor}}</td>
-                  <td>{{movie.release_date}}</td>
-                  <td>{{movie.out_date}}</td>
-                  <td>{{movie.limitation}}</td>
-                  <td><a style="color:blue; text-decoration:none;font-size:25px;"href="{% url 'delete-movie' movie.id  %}">&#10008;</a></td>
+                  <td> {{product}}</td>
+                  <td> <img src="{ url product.poster}" alt="poster Pic" height="40px" width="40px" /></td>
+                  <td> {{product.description}}</td>
+                  <td> {{product.actor}}</td>
+                  <td>{{product.release_date}}</td>
+                  <td>{{product.out_date}}</td>
+                  <td>{{product.limitation}}</td>
+                  <td>{{product.hall}}</td>
+                  <td><a style="color:blue; text-decoration:none;font-size:25px;"href="{% url 'delete-product' product.id  %}">&#10008;</a></td>
                 </tr>
                 {% endfor %}
 

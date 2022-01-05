@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='movie',
             name='poster',
-            field=models.ImageField(blank=True, null=True, upload_to='movie_pic/movie_poster/'),
+            field=models.ImageField(blank=True, null=True, upload_to='coffee_pic/coffee_poster/'),
         ),
         migrations.CreateModel(
             name='Seat',

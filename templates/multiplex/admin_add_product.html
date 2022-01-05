@@ -37,34 +37,29 @@
 </head>
 
 <br><br><br><br><br>
-<h3 style="text-align:center;">ADD NEW MOVIE</h3>
+<h3 style="text-align:center;">ADD NEW PRODUCT</h3>
 <div>
     <form method="post" autocomplete="off" enctype="multipart/form-data" style="margin-left:200px;margin-right:200px;">
         {% csrf_token %}
 
-        <label for="name">Movie Name</label>
+        <label for="name">Product Name</label>
         <input type="text" name="name" value="" required>
 
         <label for="description">Description</label>
         <textarea name="description" rows="3" required cols="80"></textarea>
 
-        <label for="actorname">Actor Name</label>
-        <input type="text" name="actorname" value="" required>
-
-        <label for="directorname">Director Name</label>
-        <input type="text" name="directorname" value="" required>
-
         <label for="release_date">Release Date</label>
         <input type="date" name="release_date" id="release_date" value="" required>
-
-        <label for="out_date">Out Date</label>
-        <input type="date" name="out_date" id="out_date" value="" required>
 
         <label for="org_price">Enter price:</label>
         <input type="text" name="org_price" value="" required>
 
         <label for="price">Enter the new price:</label>
         <input type="text" name="price" value="" required>
+
+        <label for="out_date">Out Date</label>
+        <input type="date" name="out_date" id="out_date" value="" required>
+
 
         <label for="poster">Poster</label>
         <input type="file" name="poster" id="poster" required value="">
@@ -77,25 +72,12 @@
             <option value="Adults">Adults (18+)</option>
         </select>
 
-        <label for="category">Choose a category:</label>
-        <select type="text" name="limitation" required>
-            <option value="Action">Action</option>
-            <option value="Drama">Drama</option>
-            <option value="Fantasy">Fantasy</option>
-            <option value="Horror">Horror</option>
-            <option value="Mystery">Mystery</option>
-            <option value="Romance">Romance</option>
-        </select>
-
         <label for="hall">Choose a hall:</label>
         <select type="text" name="hall" required>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>
             <option value="D">D</option>
-
-            <label for="video">Youtube Video Link</label>
-            <input type="text" name="video" placeholder="https://www.youtube.com/embed/tgbNymZ7vqY" required>
 
 
             <input type="submit" value="Add">

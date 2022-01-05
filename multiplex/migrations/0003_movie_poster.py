@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='movie',
             name='poster',
-            field=models.ImageField(blank=True, null=True, upload_to='movie_pic/'),
+            field=models.ImageField(blank=True, null=True, upload_to='coffee_pic/'),
         ),
     ]
