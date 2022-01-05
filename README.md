@@ -1,5 +1,6 @@
 # MOVIE TICKET BOOKING
-בכדיי להפעיל צריך להריץ קודם את 
+בכדיי להפעיל צריך להריץ קודם את להתקין Django
+
 1.	python3 manage.py makemigrations
 2.	python3 manage.py migrate
 3.	python3 manage.py runserver
